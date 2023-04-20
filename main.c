@@ -13,7 +13,9 @@
 // #define THING_Y 100
 #define THING_WIDTH 100
 #define THING_HEIGHT THING_WIDTH
-#define SPEED 7
+
+int speed = 70;
+#define SPEED_INC 5
 
 int thing_x = 100;
 int thing_y = 100;
@@ -58,6 +60,24 @@ int main()
 						isRunning = false;
 						break;
 					}
+				case SDL_KEYDOWN:
+					{
+						switch (event.key.keysym.sym) {
+							case SDLK_EQUALS:
+								{
+									speed+=SPEED_INC;
+									break;
+								}
+							case SDLK_MINUS:
+								{
+									speed-=SPEED_INC;
+									break;
+								}
+							default:
+								break;
+            }
+						break;
+					}
 					
 				default:
 					break;
@@ -69,8 +89,8 @@ int main()
 		if ((thing_x <= 0) || (thing_x >= WINDOW_WIDTH - THING_WIDTH)) thing_dx *= -1;
 		if ((thing_y <= 0) || (thing_y >= WINDOW_HEIGHT - THING_HEIGHT)) thing_dy *= -1;
 
-		thing_x += thing_dx*SPEED;
-		thing_y += thing_dy*SPEED;
+		thing_x += thing_dx*speed;
+		thing_y += thing_dy*speed;
 
 		SDL_Rect thing = {
 			.x = thing_x,
